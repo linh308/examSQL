@@ -20,22 +20,22 @@ CREATE TABLE Employee (
 go
 ---------------1
 INSERT INTO Department (DepartId,DepartName,[Description])
-VALUES (1, 'Phòng kế toán', 'Accounting Department');
+VALUES (1, 'Phong ke toan', 'Accounting Department');
 INSERT INTO Department (DepartId,DepartName,[Description])
-VALUES (2, 'Phòng hành chính', 'Administration Department');
+VALUES (2, 'Phong hanh chinh', 'Administration Department');
 INSERT INTO Department (DepartId,DepartName,[Description])
-VALUES (3, 'Phòng nhân sự', 'Human Resource Department');
+VALUES (3, 'Phong nhan su', 'Human Resource Department');
 
 INSERT INTO Employee (EmpCode,FistName,LastName,Birthday,Gender,[Address],DepartID,Salary)
-VALUES ('E001', 'Loan', 'Hồ','1990-01-01','1','8 Phố huế',1,10000000);
+VALUES ('E001', 'Loan', 'Ho','1990-01-01','1','8 Pho hue',1,10000000);
 INSERT INTO Employee (EmpCode,FistName,LastName,Birthday,Gender,[Address],DepartID,Salary)
-VALUES ('E002', 'Hà', 'Tô','1992-05-05','1','6 Láng',1,8000000);
+VALUES ('E002', 'Ha', 'To','1992-05-05','1','6 Lang',1,8000000);
 INSERT INTO Employee (EmpCode,FistName,LastName,Birthday,Gender,[Address],DepartID,Salary)
-VALUES ('E003', 'Hương', 'Phạm','1994-07-12','1','6 Cầu Giấy',2,8500000);
+VALUES ('E003', 'Huong', 'Pham','1994-07-12','1','6 Cau Giay',2,8500000);
 INSERT INTO Employee (EmpCode,FistName,LastName,Birthday,Gender,[Address],DepartID,Salary)
-VALUES ('E004', 'Hoa', 'Nguyễn','1995-12-12','1','20 Cầu Giấy',2,7000000);
+VALUES ('E004', 'Hoa', 'Nguyen','1995-12-12','1','20  Cau Giay',2,7000000);
 INSERT INTO Employee (EmpCode,FistName,LastName,Birthday,Gender,[Address],DepartID,Salary)
-VALUES ('E005', 'Phương', 'Nguyễn','1990-02-09','1','35 Nam Dư',3,7000000);
+VALUES ('E005', 'Phương', 'Nguyem','1990-02-09','1','35 Nam Du',3,7000000);
 select * from Department
 select * from Employee
 
