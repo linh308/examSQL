@@ -1,0 +1,89 @@
+create database EmployeeDB;
+go
+use EmployeeDB;
+CREATE TABLE Department (
+    DepartId		int not null primary key,
+    DepartName		varchar(50) not null,
+    [Description]	varchar(50) not null	,
+   );
+go
+CREATE TABLE Employee (
+	EmpCode			char(6) not null primary key,
+	FistName		varchar(30) not null ,
+	LastName		varchar(30) not null ,
+	Birthday		smalldatetime not null ,
+	Gender			bit DEFAULT '1',
+	[Address]		varchar(100),
+	DepartID		int	FOREIGN KEY REFERENCES Department(DepartID),
+	Salary			money
+);
+go
+---------------1
+INSERT INTO Department (DepartId,DepartName,[Description])
+VALUES (1, 'Phòng kế toán', 'Accounting Department');
+INSERT INTO Department (DepartId,DepartName,[Description])
+VALUES (2, 'Phòng hành chính', 'Administration Department');
+INSERT INTO Department (DepartId,DepartName,[Description])
+VALUES (3, 'Phòng nhân sự', 'Human Resource Department');
+
+INSERT INTO Employee (EmpCode,FistName,LastName,Birthday,Gender,[Address],DepartID,Salary)
+VALUES ('E001', 'Loan', 'Hồ','1990-01-01','1','8 Phố huế',1,10000000);
+INSERT INTO Employee (EmpCode,FistName,LastName,Birthday,Gender,[Address],DepartID,Salary)
+VALUES ('E002', 'Hà', 'Tô','1992-05-05','1','6 Láng',1,8000000);
+INSERT INTO Employee (EmpCode,FistName,LastName,Birthday,Gender,[Address],DepartID,Salary)
+VALUES ('E003', 'Hương', 'Phạm','1994-07-12','1','6 Cầu Giấy',2,8500000);
+INSERT INTO Employee (EmpCode,FistName,LastName,Birthday,Gender,[Address],DepartID,Salary)
+VALUES ('E004', 'Hoa', 'Nguyễn','1995-12-12','1','20 Cầu Giấy',2,7000000);
+INSERT INTO Employee (EmpCode,FistName,LastName,Birthday,Gender,[Address],DepartID,Salary)
+VALUES ('E005', 'Phương', 'Nguyễn','1990-02-09','1','35 Nam Dư',3,7000000);
+select * from Department
+select * from Employee
+
+go
+---------------------2
+update Employee
+set Salary = Salary + Salary*0.1
+
+go
+--------------------3
+alter table Employee
+add constraint CheckSalary check (Salary > 0)
+go
+
+------------------4
+create trigger TG_CheckBirthday
+on Employee
+after update, insert
+as
+begin
+    declare @dayOfBirthDay date;
+	select @dayOfBirthDay  = inserted.Birthday from inserted;
+
+	if(Day(@dayOfBirthDay) <= 23 ) 
+	begin
+	    print 'Day of birthday must be greater than 23!';
+		rollback transaction;
+	end
+end
+go
+-----------------5
+ create nonclustered index IX_DepartmentName
+ on Department(DepartName)
+ go
+ -------------8
+ create procedure sp_delDept(@empCode char(6))
+ as 
+ begin
+   if (select count (*) from Employee where Employee.Empcode = @empCode) > 0
+   begin
+      delete from Employee
+	  where EmpCode = @empCode
+   end
+   else
+   begin
+      print 'Dont find employee!';
+	  rollback transaction;
+   end
+ end
+ exec sp_delDept @empCode = 'E001'
+ go
